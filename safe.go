@@ -4,6 +4,9 @@ import "os"
 
 type exitCode int
 
+var exit = make(chan exitCode)
+
+// CatchExit catches the final application's exit or rethrows an underlying panic.
 func CatchExit() {
     if p := recover(); p != nil {
         if ec, ok := p.(exitCode); ok {
@@ -13,6 +16,16 @@ func CatchExit() {
     }
 }
 
+// Exit is goroutine-safe application exit trigger.
 func Exit(ec int) {
-    panic(exitCode(ec))
+    exit <- exitCode(ec)
+}
+
+// WaitExit blocks and waits for an exit signal and triggers the final application's exit.
+// This function must be invoked in the same goroutine as CatchExit (typically, at the main's end).
+func WaitExit() {
+    select {
+    case ec := <- exit:
+        panic(ec)
+    }
 }
