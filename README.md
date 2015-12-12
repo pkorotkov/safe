@@ -6,11 +6,18 @@ import "safe"
 func main() {
     defer safe.CatchExit()
     defer doLongFinalCleanupOperations()
-    
-    doWork()
-    
+
+    go func() {
+        err := doWork()
+        if err != nil {
+            safe.Exit(1)
+        }
+    }()
+
     if something == wrong {
-        safe.Exit(1)
+        safe.Exit(2)
     }
+
+    WaitExit()
 }
 ```
