@@ -23,7 +23,7 @@ func Exit(ec int) {
 
 // WaitExit blocks and waits for an exit signal and triggers the final application's exit.
 // This function must be invoked in the same goroutine as CatchExit (typically, at the main's end).
-func WaitExit() {
+func WaitForExit() {
     select {
     case ec := <- exit:
         panic(ec)
