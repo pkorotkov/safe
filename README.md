@@ -18,6 +18,6 @@ func main() {
         safe.Exit(2)
     }
 
-    WaitExit()
+    WaitForExit()
 }
 ```
