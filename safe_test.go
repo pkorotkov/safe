@@ -19,5 +19,5 @@ func TestMain(m *testing.M) {
         time.Sleep(1 * time.Second)
         Exit(0)
     }()
-    WaitExit()
+    WaitForExit()
 }
