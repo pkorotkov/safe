@@ -16,7 +16,8 @@ func CatchExit() {
     }
 }
 
-// Exit is goroutine-safe application exit trigger.
+// Exit triggers application exit in goroutine-safe manner.
+// Must not be called within Wait-Catch goroutine.
 func Exit(ec int) {
     exit <- exitCode(ec)
 }
