@@ -21,7 +21,7 @@ func Exit(ec int) {
     exit <- exitCode(ec)
 }
 
-// WaitExit blocks and waits for an exit signal and triggers the final application's exit.
+// WaitForExit blocks and waits for an exit signal and triggers the final application's exit.
 // This function must be invoked in the same goroutine as CatchExit (typically, at the main's end).
 func WaitForExit() {
     select {
